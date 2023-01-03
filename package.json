@@ -1,0 +1,17 @@
+{
+  "name": "digital-garden",
+  "version": "1.0.0",
+  "description": "Meu jardim digital",
+  "main": "index.js",
+  "repository": "git@github.com:jeffque/digital-garden.git",
+  "author": "Jefferson Quesado <jeff.quesado@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "dependencies": {
+    "@terezatech/zettel": "^0.10.0"
+  },
+  "scripts": {
+    "dev": "node index.js"
+  }
+}
