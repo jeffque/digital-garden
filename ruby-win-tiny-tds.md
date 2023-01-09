@@ -33,4 +33,6 @@ determinar o `@INC`.
 export PERL5LIB=/c/Program\ Files\ \(x86\)/gnuwin32/autotools/share/autoconf/
 ```
 
-Agora o próximo impedimento é o `aclocal`
+Agora o próximo impedimento é o `aclocal`.
+
+Instalei a partir de outro pacote do GnuWin32, [automake](https://gnuwin32.sourceforge.net/packages/automake.htm), de modo semelhante a o que fiz com o autotools.
