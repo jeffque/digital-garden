@@ -56,3 +56,41 @@ o meu local de instalação:
 -$acdir = 'c:/progra~1/AutoMake/share/aclocal';
 +$acdir = 'c:/gnuwin32/automake/share/aclocal';
 ```
+
+Com isso deu problema ao carregar o `m4`:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+autom4te: need GNU m4 1.4 or later: /usr/bin/m4
+aclocal: autom4te failed with exit status: 1
+```
+
+Coloquei a seguinte envvar para sobrescrever o binário que ele carrega:
+
+```bash
+export M4=m4
+```
+
+> Não deu certo o `which m4` porque no meu caso tinha um espaço no nome e o perl se perdeu
+
+E agora ele reclama do seguinte:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+autom4te: cannot open < c:/progra~1/autoconf/share/autoconf/autom4te.cfg: No such file or directory
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+autom4te: cannot open < c:/progra~1/autoconf/share/autoconf/autom4te.cfg: No such file or directory
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+```
+
+Hmmm, pelo visto é `AC_MACRODIR` ou `autom4te_perllibdir`, colocando ambos para o mesmo valor:
+
+```bash
+export autom4te_perllibdir="/c/gnuwin32/autotools/share/autoconf/"
+export AC_MACRODIR="$autom4ate_perllibdir"
+```
