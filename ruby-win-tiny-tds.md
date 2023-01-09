@@ -35,4 +35,23 @@ export PERL5LIB=/c/Program\ Files\ \(x86\)/gnuwin32/autotools/share/autoconf/
 
 Agora o próximo impedimento é o `aclocal`.
 
-Instalei a partir de outro pacote do GnuWin32, [automake](https://gnuwin32.sourceforge.net/packages/automake.htm), de modo semelhante a o que fiz com o autotools.
+Instalei a partir de outro pacote do GnuWin32, [automake](https://gnuwin32.sourceforge.net/packages/automake.htm),
+de modo semelhante a o que fiz com o autotools.
+
+Adicionei mais caminhos para o `@INC`:
+
+- `/c/Program Files (x86)/gnuwin32/automake/share/aclocal-1.9/`
+- `/c/Program Files (x86)/gnuwin32/automake/share/automake-1.9/`
+
+O `aclocal` tem em sua composição referência a variável `perllibdir`, com o valor default
+`c:/progra~1/AutoMake/share/automake-1.9`. Então também sobrescrevi essa variável no `.bash_profile`:
+
+- `export perllibdir="/c/Program Files (x86)/gnuwin32/automake/share/aclocal-1.9/"`
+
+Só que a linha 48 de `aclocal` referencia um caminho hardcoded. Troquei ele para
+o meu local de instalação:
+
+```diff
+-$acdir = 'c:/progra~1/AutoMake/share/aclocal';
++$acdir = 'c:/progra~1/gnuwin32/automake/share/aclocal';
+```
