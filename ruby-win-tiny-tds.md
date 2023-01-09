@@ -25,3 +25,6 @@ BEGIN failed--compilation aborted at /c/Program Files (x86)/gnuwin32/autotools/b
 
 Descobri que eu tenho acesso a esse arquivo (`/c/Program Files (x86)/gnuwin32/autotools/share/autoconf/`), porém
 o Perl por algum motivo não está encontrando. Preciso alterar o `@Inc` para ele enxergar
+
+Usa a [variável `PERL5LIBRARY`](https://perlmaven.com/how-to-change-inc-to-find-perl-modules-in-non-standard-locations) para
+determinar o `@INC`.
