@@ -134,3 +134,77 @@ autom4te: m4 failed with exit status: 1
 aclocal: autom4te failed with exit status: 1
 autoreconf: aclocal failed with exit status: 1
 ```
+
+
+Removi todos os `.m4f`. Deu para seguir em frente.
+
+Deu problema depois no seguinte:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+C:\Program Files (x86)\Gow\bin\m4.exe: esyscmd subprocess failed: No such file or directory
+C:\Program Files (x86)\Gow\bin\m4.exe:configure.ac:14: cannot run command `printf $(date +"%Y%m%d")': No such file or directory
+autom4te: m4 failed with exit status: 1
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+C:\Program Files (x86)\Gow\bin\m4.exe: esyscmd subprocess failed: No such file or directory
+C:\Program Files (x86)\Gow\bin\m4.exe:configure.ac:14: cannot run command `printf $(date +"%Y%m%d")': No such file or directory
+autom4te: m4 failed with exit status: 1
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+```
+
+Não conseguindo sanar o problema do `esyscmd`, fui ver se era algum problema local
+nos arquivos do repositório. Daí encontrei o `esyscmd` no `configure.ac`, linha 14 mesmo,
+e troquei por uma constante:
+
+```diff
+-AC_INIT(FreeTDS, http://1.4.dev.esyscmd(printf $(date +"%Y%m%d")))
++AC_INIT(FreeTDS, 20230108)
+```
+
+Depois disso, deu o seguinte problema:
+
+```
+sh: c:/progra~1/autoconf/bin/autoconf: No such file or directory
+```
+
+Então descobri mais duas variáveis de ambiente que poderiam ser sobrescritas:
+
+- `AUTOCONF` (referente a esse executável)
+- `AUTOHEADER` (referente ao `autoheader`)
+
+Em seguida apareceu o mesmo problema para `autom4te`.
+
+Corrigi para os 3:
+
+```bash
+export AUTOCONF=/c/gnuwin32/autotools/bin/autoconf
+export AUTOHEADER=/c/gnuwin32/autotools/bin/autoheader
+export AUTOM4TE=/c/gnuwin32/autotools/bin/autom4te
+```
+
+O erro evoluiu para:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:125: warning: macro `AM_ICONV' not found in library
+configure.ac:20: error: possibly undefined macro: AM_INIT_AUTOMAKE
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+configure.ac:88: error: possibly undefined macro: AM_CONDITIONAL
+configure.ac:96: error: possibly undefined macro: AC_DEFINE
+configure.ac:107: error: possibly undefined macro: AM_PROG_CC_C_O
+configure.ac:117: error: possibly undefined macro: AC_LTDL_DLLIB
+configure.ac:118: error: possibly undefined macro: LT_AC_PROG_RC
+configure.ac:125: error: possibly undefined macro: AM_ICONV
+configure.ac:201: error: possibly undefined macro: AC_SEARCH_LIBS
+autoreconf: /c/gnuwin32/autotools/bin/autoconf failed with exit status: 1
+aclocal:configure.ac:125: warning: macro `AM_ICONV' not found in library
+Running
+./configure
+...
+configure: error: cannot find install-sh or install.sh in "." "./.." "./../.."
+```
