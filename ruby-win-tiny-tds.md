@@ -94,3 +94,43 @@ Hmmm, pelo visto é `AC_MACRODIR` ou `autom4te_perllibdir`, colocando ambos para
 export autom4te_perllibdir="/c/gnuwin32/autotools/share/autoconf/"
 export AC_MACRODIR="$autom4te_perllibdir"
 ```
+
+Ainda deu problemas:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+autom4te: m4sugar/m4sugar.m4: no such file or directory
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+autom4te: m4sugar/m4sugar.m4: no such file or directory
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+```
+
+Ao investigar o `autom4te`, descobri que a configuração `autom4te.cfg` tava apontando para local inexistente:
+
+```
+args: --prepend-include 'c:/progra~1/autoconf/share/autoconf'
+```
+
+Isso em diversos lugares. Apliquei a substituição `s_c:/progra~1/_c:/gnuwin32/_c`, mas continuou com o mesmo problema.
+
+Percebi então que minha instalação está com `autotools`, então segui para substituir `s_c:/gnuwin32/autoconf/_c:/gnuwin32/autotools/_c`.
+
+Agora o erro alterou para:
+
+```
+running /c/gnuwin32/autotools/bin/autoreconf in /c/repos/freetds:
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+C:\Program Files (x86)\Gow\bin\m4.exe:c:/gnuwin32/autotools/share/autoconf/autoconf/autoconf.m4f:2068: premature end of frozen file
+autom4te: m4 failed with exit status: 1
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+aclocal:configure.ac:124: warning: macro `AM_ICONV' not found in library
+C:\Program Files (x86)\Gow\bin\m4.exe:c:/gnuwin32/autotools/share/autoconf/autoconf/autoconf.m4f:2068: premature end of frozen file
+autom4te: m4 failed with exit status: 1
+aclocal: autom4te failed with exit status: 1
+autoreconf: aclocal failed with exit status: 1
+```
