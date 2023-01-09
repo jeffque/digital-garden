@@ -7,9 +7,10 @@ Precisa ter o [free tds](https://github.com/FreeTDS/freetds/) instalado.
 Não encontrei binários prontos, então clonei o repositório.
 
 Precisei baixar o [GnuWin32 autotools](https://gnuwin32.sourceforge.net/packages/autoconf.htm),
-coloquei no `Program Files (x86)/gnuwin32/autotools` e adicionei esse diretório ao `PATH`
+coloquei no `C:/gnuwin32/autotools` (adicionei esse diretório ao `PATH` apenas via `.bash_profile`)
 
-(tanto via variáveis de ambiente do windows como `.bashrc`)
+> Originalmente ficava em `C:/Program Files (x86)/gnuwin32/autotools`, portanto algumas referências
+> ao local original vão existir nesse Zettel
 
 Foi necessário baixar o **GnuWin32 autotools** para ter acesso ao `autoreconf` para
 tentar compilar o free tds.
@@ -46,12 +47,12 @@ Adicionei mais caminhos para o `@INC`:
 O `aclocal` tem em sua composição referência a variável `perllibdir`, com o valor default
 `c:/progra~1/AutoMake/share/automake-1.9`. Então também sobrescrevi essa variável no `.bash_profile`:
 
-- `export perllibdir="/c/Program Files (x86)/gnuwin32/automake/share/aclocal-1.9/"`
+- `export perllibdir="/c/gnuwin32/automake/share/aclocal-1.9/"`
 
 Só que a linha 48 de `aclocal` referencia um caminho hardcoded. Troquei ele para
 o meu local de instalação:
 
 ```diff
 -$acdir = 'c:/progra~1/AutoMake/share/aclocal';
-+$acdir = 'c:/progra~1/gnuwin32/automake/share/aclocal';
++$acdir = 'c:/gnuwin32/automake/share/aclocal';
 ```
