@@ -22,3 +22,6 @@ running /c/Program Files (x86)/gnuwin32/autotools/bin/autoreconf in /c/repos/fre
 Can't locate Autom4te/ChannelDefs.pm in @INC (you may need to install the Autom4te::ChannelDefs module) (@INC contains: c:/progra~1/autoconf/share/autoconf /usr/lib/perl5/site_perl /usr/share/perl5/site_perl /usr/lib/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/lib/perl5/core_perl /usr/share/perl5/core_perl) at /c/Program Files (x86)/gnuwin32/autotools/bin/autoreconf line 42.
 BEGIN failed--compilation aborted at /c/Program Files (x86)/gnuwin32/autotools/bin/autoreconf line 42.
 ```
+
+Descobri que eu tenho acesso a esse arquivo (`/c/Program Files (x86)/gnuwin32/autotools/share/autoconf/`), porém
+o Perl por algum motivo não está encontrando. Preciso alterar o `@Inc` para ele enxergar
