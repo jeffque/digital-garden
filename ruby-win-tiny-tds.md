@@ -92,5 +92,5 @@ Hmmm, pelo visto é `AC_MACRODIR` ou `autom4te_perllibdir`, colocando ambos para
 
 ```bash
 export autom4te_perllibdir="/c/gnuwin32/autotools/share/autoconf/"
-export AC_MACRODIR="$autom4ate_perllibdir"
+export AC_MACRODIR="$autom4te_perllibdir"
 ```
