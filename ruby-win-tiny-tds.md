@@ -28,3 +28,7 @@ o Perl por algum motivo não está encontrando. Preciso alterar o `@Inc` para el
 
 Usa a [variável `PERL5LIBRARY`](https://perlmaven.com/how-to-change-inc-to-find-perl-modules-in-non-standard-locations) para
 determinar o `@INC`.
+
+```bash
+export PERL5LIB=/c/Program\ Files\ \(x86\)/gnuwin32/autotools/share/autoconf/
+```
