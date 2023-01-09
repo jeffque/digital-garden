@@ -32,3 +32,5 @@ determinar o `@INC`.
 ```bash
 export PERL5LIB=/c/Program\ Files\ \(x86\)/gnuwin32/autotools/share/autoconf/
 ```
+
+Agora o próximo impedimento é o `aclocal`
