@@ -30,6 +30,19 @@ E, pronto, já está disponível. Agora ele precisa instalar o plugin.
 
 # Instalando o plugin de ruby
 
+Precisa instalar dependências do ruby antes de começar com o plugin.
+
+- [Repo do plugin](https://github.com/asdf-vm/asdf-ruby)
+- [Doc com as dependências](https://github.com/rbenv/ruby-build/wiki#suggested-build-environment)
+
+Em casos de sistemas baseados em Ubuntu:
+
+```bash
+apt-get install autoconf bison patch build-essential rustc \
+    libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev \
+    libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+```
+
 Instalando o plugin de ruby:
 
 ```bash
