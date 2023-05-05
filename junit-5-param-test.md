@@ -88,3 +88,25 @@ private static Stream<Arguments> fonteDosArgs() {
     );
 }
 ```
+
+Para situações de testes com tipos mais simples de variáveis, você pode anotar diretamente o argumento e seus
+valores, sem precisar incorrer em indireção tão grande. Por exemplo, se você precisa fornecer inteiros:
+
+```java
+@ValueSource(ints = {0, 1, 2, 3, 5, 8, 13})
+@ParameterizedTest
+void testeComNumeros(int valor) {
+}
+```
+
+Outros argumentos possíveis para a anotação `@ValueSource` são:
+
+- `booleans`
+- `longs`
+- `string`
+
+Por motivos, não pode passar nulo na lista, nem para string.
+
+Leia mais sobre:
+
+- `org.junit.jupiter.params.provider.ValueSource`
